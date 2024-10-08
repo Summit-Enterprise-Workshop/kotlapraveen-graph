@@ -6,6 +6,7 @@ extend schema
       "@shareable",
       "@authenticated",
       "@requiresScopes",
+      "@override"
     ]
   )
 
@@ -50,11 +51,11 @@ type Order @key(fields: "id") {
 type User @key(fields: "id") {
   id: ID!
   phone: String
-    @tag(name: "private")
-    @shareable
-  email: String!
-    @tag(name: "private")
-    @shareable
+   @tag(name: "private")
+   @override(from: "orders", label: "percent(50)")
+ email: String!
+  @tag(name: "private")
+  @override(from: "orders", label: "percent(50)")
 }
 
 type ProductVariant @key(fields: "id", resolvable: false) {
